@@ -1,0 +1,37 @@
+<h1><%= @product.name %></h1>
+
+<p>
+  <strong>Model:</strong>
+  <%= @product.model %>
+</p>
+
+<p>
+  <strong>Ram:</strong>
+  <%= @product.ram %>
+</p>
+
+<p>
+  <strong>Storage:</strong>
+  <%= @product.storage %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @product.color %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @product.price %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <p>
+    <%= image_tag url_for(@product.image) if @product.image.attached? %>
+    <!-- <%= image_tag @product.image.variant(resize: "100x100") if @product.image.attached? %> -->
+  </p>
+</p>
+
+<%= link_to 'Edit', edit_admin_dashboard_path(@product) %> |
+<%= link_to 'Back', admin_dashboard_index_path %>

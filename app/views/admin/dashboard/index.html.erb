@@ -1,1 +1,34 @@
-<h1>Hello, welcome to admin section</h1>
+<h1>Products</h1>
+
+<table>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Model</th>
+      <th>Ram</th>
+      <th>Storage</th>
+      <th>Color</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  
+    <% @products.each do |product| %>
+      <tr>
+        <%= image_tag url_for(product.image) if product.image.attached? %>
+        <!-- <%= image_tag product.image.variant(resize: "100x100") if product.image.attached? %> -->
+        <td><%= product.name %></td>
+        <td><%= product.model %></td>
+        <td><%= product.ram %></td>
+        <td><%= product.storage %></td>
+        <td><%= product.color %></td>
+        <td><%= product.price %></td>
+        <td>
+          <%= link_to 'Show', admin_dashboard_path(product) %> |
+          <%= link_to 'Edit', edit_admin_dashboard_path(product) %> |
+          <%= link_to 'Delete', admin_dashboard_path(product), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+<%= link_to 'New Product', new_admin_dashboard_path %>
