@@ -10,10 +10,11 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
-    <main> 
-      <%= render partial: 'cart/cart' if @render_cart %>
+    <main>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= render partial: 'cart/cart' if @render_cart  %>
       <%= yield %>
     </main>
   </body>

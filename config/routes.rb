@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'pages/home'
+  devise_for :users
   get 'cart',  to: 'cart#show'
   post 'cart/add'
   post 'cart/remove'
@@ -9,5 +11,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "products#index"
+  root "pages#home"
 end
