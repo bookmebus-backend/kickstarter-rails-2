@@ -6,3 +6,5 @@
     <%= product.name %> * <%= cart_item.quantity %> = $ <%= product.price * cart_item.quantity %>
   </p>
 <%end%>
+<%= render 'cart/cart_items' %>
+

@@ -1,0 +1,23 @@
+<h1 class="mt-4 mb-4">All Orders</h1>
+<div class="table-responsive p-4">
+  <table class="table table-bordered table-hover rounded">
+    <thead class="thead-dark">
+      <tr>
+        <th>Order ID</th>
+        <th>User</th>
+        <th>Address</th>
+        <!-- Add more columns as needed -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders&.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.user.email %></td>
+          <td><%= order.address %></td>
+          <!-- Add more columns as needed -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

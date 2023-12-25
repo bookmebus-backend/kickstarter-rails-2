@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    before_action :authenticate_user!
     before_action :set_render_cart
     before_action :initialize_cart
 
@@ -18,5 +19,4 @@ class ApplicationController < ActionController::Base
         @cart ||= current_user&.create_cart
         session[:cart_id] ||= @cart&.id
     end
-
 end

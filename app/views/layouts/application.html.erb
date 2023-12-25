@@ -12,9 +12,10 @@
   </head>
   <body>
     <main>
+      <%= render 'layouts/navbar' %>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
-      <%= render partial: 'cart/cart' if @render_cart  %>
+      <%= render 'admin/orders' %>
       <%= yield %>
     </main>
   </body>
