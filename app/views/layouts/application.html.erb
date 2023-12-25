@@ -13,6 +13,7 @@
 
   <body>
     <main> 
+      <%= render partial: 'cart/cart' if @render_cart %>
       <%= yield %>
     </main>
   </body>

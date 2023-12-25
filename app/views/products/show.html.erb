@@ -1,14 +1,19 @@
-<h1><%= @product.name %></h1>
-
-<p> 
+<div id="<%= dom_id @product %>">
+  <h1><%= @product.name %></h1>
+  <p>
     <strong>Image: </strong>
     <% if @product.image.attached? %>
-        <%= image_tag @product.image %>
+      <%= image_tag @product.image %>
     <% else %>
-        No image available
+      No image available
     <% end %>
-</p>
-
-<p> <strong> Description:</strong> <%= @product.description %> </p>
-<p> <strong> Price:</strong> <%= number_to_currency(@product.description) %> </p>
-<%= link_to "Back to all products", products_path %>
+  </p>
+  <p> <strong> Description:</strong> <%= @product.description %> </p>
+  <p> <strong> Price:</strong> <%= number_to_currency(@product.price) %> </p>
+  <%= form_with(url: cart_add_path) do |f| %>
+    <%= f.hidden_field :id, value: @product.id %>
+    <%= f.number_field :quantity, value: 0, min: 1 %>
+    <%= f.submit  "Add to cart" %>
+  <%end%>
+  <%= link_to "Back to all products", products_path %>
+</div>
