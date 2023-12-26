@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
+  get 'admin/index'
   get 'pages/home'
   devise_for :users
   get 'cart',  to: 'cart#show'
   post 'cart/add'
   post 'cart/remove'
-  get 'admin/orders', to: 'orders#admin_index'
+  # get 'admin/orders', to: 'orders#admin_index'
   resources :products
-  resources :orders
+  resources :orders do
+    member do
+      patch 'update_status'
+      patch 'edit'
+      patch 'update_order', to: 'orders#update'
+    end
+    delete 'destroy', on: :member
+  end
   resources :order_statuses
   resources :order_items
 

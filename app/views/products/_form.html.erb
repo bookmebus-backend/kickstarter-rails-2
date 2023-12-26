@@ -1,18 +1,31 @@
-<div class= "container">
-  <%= form_with(model: @product) do |f| %>
+<div class="container mt-4">
+  <div class="card rounded">
+    <div class="card-body">
+      <%= form_with(model: @product, local: true, html: { class: '' }) do |f| %>
 
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+        <div class="mb-3">
+          <%= f.label :name, class: 'form-label' %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
 
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+        <div class="mb-3">
+          <%= f.label :description, class: 'form-label' %>
+          <%= f.text_area :description, class: 'form-control' %>
+        </div>
 
-    <%= f.label :price %>
-    <%= f.number_field :price %>
+        <div class="mb-3">
+          <%= f.label :price, class: 'form-label' %>
+          <%= f.number_field :price, class: 'form-control' %>
+        </div>
 
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-    
-    <%= f.submit "Save Product" %>
-  <%end%>
+        <div class="mb-3">
+          <%= f.label :image, class: 'form-label' %>
+          <%= f.file_field :image, class: 'form-control' %>
+        </div>
+        
+        <%= f.submit "Save Product", class: 'btn btn-primary' %>
+
+      <% end %>
+    </div>
+  </div>
 </div>

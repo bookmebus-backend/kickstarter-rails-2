@@ -1,10 +1,32 @@
-<h1>Your Cart</h1>
-<p> Your total is $ <%= @cart.total %> </p>
-<% @cart.cart_items.each do |cart_item| %>
-  <% product = cart_item.product %>
-  <p>
-    <%= product.name %> * <%= cart_item.quantity %> = $ <%= product.price * cart_item.quantity %>
-  </p>
-<%end%>
-<%= render 'cart/cart_items' %>
-
+<div class="container mt-4">
+  <div class="card rounded text-center">
+    <div class="card-body">
+      <div class="row">
+        <h1 class="card-title">Your Cart</h1>
+        <div class="col-md-6">
+          <%= render 'cart/cart_items' %>
+        </div>
+        <div class="col-md-6">
+          <% if @cart.cart_items.empty? %>
+            <p class="card-text">Cart is empty</p>
+          <% else %>
+            <div class = "card mb-2">
+              <div class="card-body">
+                <p class="card-text">Your total is $ <%= @cart.total %></p>
+              </div>
+              <% @cart.cart_items.each do |cart_item| %>
+                <% product = cart_item.product %>
+                <div class="card-body">
+                  <p class="card-text">
+                    <%= product.name %> * <%= cart_item.quantity %> = $ <%= product.price * cart_item.quantity %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+            <%= link_to "Proceed to Order", new_order_path, class: "btn btn-success mt-3" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

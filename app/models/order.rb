@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
+  enum status: { pending: 0, completed: 1, cancel: 2 }
+  
   belongs_to :user
-  belongs_to :order_status
   has_many :order_items, dependent: :destroy
 
   before_validation :set_default_status, on: :create
@@ -8,6 +9,6 @@ class Order < ApplicationRecord
   private
 
   def set_default_status
-    self.order_status ||= OrderStatus.find_or_create_by(name: 'pending')
+    self.status ||= :pending
   end
 end

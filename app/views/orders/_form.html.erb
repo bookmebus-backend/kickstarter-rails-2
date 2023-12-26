@@ -1,5 +1,8 @@
-<%= form_with(model: order, local: true) do |f| %>
-    <%= f.label :address %>
+<%= form_with(model: order, local: true, html: { class: 'mt-4' }) do |f| %>
+  <div class="mb-3">
+    <%= f.label :address, class: 'form-label' %>
     <%= f.text_field :address, class: 'form-control' %>
-    <%= f.submit 'Create Order' %>
+  </div>
+
+  <%= f.submit 'Create Order', class: 'btn btn-primary' %>
 <% end %>

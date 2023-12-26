@@ -6,7 +6,10 @@
         <th>Order ID</th>
         <th>User</th>
         <th>Address</th>
-        <!-- Add more columns as needed -->
+        <th>Item</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -15,7 +18,19 @@
           <td><%= order.id %></td>
           <td><%= order.user.email %></td>
           <td><%= order.address %></td>
-          <!-- Add more columns as needed -->
+          <td>
+            <% order.order_items.each do |order_item| %>
+              <%= order_item.product.name %><br>
+            <% end %>
+          </td>
+          <td class="editable-status" data-order-id="<%= order.id %>">
+            <%= render 'admin/status_cell', order: order %>
+          </td>
+          <td>$<%= order.price %></td>
+          <td class="flex justify-content-center align-center text-center">
+            <%= link_to 'Edit', edit_order_path(order), class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Delete', order, method: :delete, data: { "turbo-method": :delete } , class: 'btn btn-danger btn-sm' %>
+          </td>
         </tr>
       <% end %>
     </tbody>

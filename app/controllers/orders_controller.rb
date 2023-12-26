@@ -20,11 +20,16 @@ class OrdersController < ApplicationController
     end
   
     def new 
-      @order = current_user.orders.build
       @cart_items = current_user.cart.cart_items
+      if @cart_items.empty?
+        # flash[:notice] = "Please add some items to the cart before creating an order."
+        redirect_to products_path 
+      else
+        @order = current_user.orders.build
+      end
     end
   
-    def create
+    def create     
       @order = current_user.orders.build(order_params)
   
       if @order.save
@@ -34,20 +39,70 @@ class OrdersController < ApplicationController
           cart_item.destroy
         end
 
+        # flash[:notice] = "Order created successfully"
         puts "Order created successfully"
   
-        redirect_to @order, alert: "Order was successfully prepared."
+        redirect_to @order, notice: "Order was successfully prepared."
       else
         puts "Error while creating order"
         puts @order.errors.full_messages
         render :new
       end
     end
+
+    def update_status
+      @order = Order.find(params[:id])
+      if @order.update(order_params)
+        @order.save
+        flash[:notice] = 'Order status updated successfully.'
+        
+      else
+        flash[:alert] = 'Error updating order status.'
+      end
+      redirect_to orders_path
+    end
+
+    # view
+    def edit
+        @order = Order.find_by(id: params[:id])
+    end
+
+    # action
+    def update
+      @order = Order.find_by(id: params[:id])
+      if @order
+        if @order.update(order_params)
+          flash[:notice] = 'Order updated successfully.'
+        else
+          puts "Order errors: #{order.errors.full_messages}"
+          flash[:alert] = 'Error updating order.'
+        end
+      else
+        flash[:alert] = 'Order not found.'
+      end
+      redirect_to orders_path
+    end
+
+    def destroy
+      @order = Order.find(params[:id])
+
+      if @order
+        @order.destroy
+        flash[:notice] = 'Order deleted successfully.'
+      else
+        flash[:alert] = 'Order not found.'
+      end
+      redirect_to orders_path
+    end
   
     private
   
     def order_params
-      params.require(:order).permit(:address).merge(price: calculate_total_price)
+      if current_user.admin?
+        params.require(:order).permit(:address, :status,:price)
+      else
+        params.require(:order).permit(:address, :status).merge(price: calculate_total_price)
+      end
     end
   
     def calculate_total_price
