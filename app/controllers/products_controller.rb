@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, only: [:create, :update, :destroy, :edit]
     before_action :check_admin, only: [:new, :create, :update, :destroy, :edit]
 
     def index
@@ -25,20 +25,27 @@ class ProductsController < ApplicationController
     end
 
     def edit
-
+        @product = Product.find(params[:id])
     end 
     
     def update
+        @product = Product.find_by(id: params[:id])
         if @product.update(product_params)
-            redirect_to @product, notice: "Product was successfully updated."
+            redirect_to products_path, notice: "Product was successfully updated."
         else
             render :edit
         end
     end
 
     def destroy
-        @product.destroy
-        redirect_to @product, notice: "Product was successfully deleted."
+        @product = Product.find(params[:id])
+        if @product
+            @product.destroy
+            flash[:notice] = 'Product deleted successfully.'
+        else
+            flash[:alert] = 'Product not found.'
+        end
+        redirect_to products_path
     end
 
     private

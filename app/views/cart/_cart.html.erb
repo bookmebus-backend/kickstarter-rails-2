@@ -3,7 +3,9 @@
   <% if @cart.cart_items.count > 0 %>
     <%= render 'cart/cart_items' %>
     <p> Total: <%= @cart.total %> </p>
-  <%else%>
-    <p> Your cart is empty </p>
-  <%end%>
+  <% else %>
+  <div class="container">
+    <p> Your cart is empty <i class="bi bi-cart"></i></p>
+  </div>
+  <% end %>
 <% end %>

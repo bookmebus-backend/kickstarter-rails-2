@@ -2,6 +2,7 @@ class AdminController < ApplicationController
   before_action :authenticate_admin!
   def index
     @orders = Order.all
+    @products = Product.all
     render :index
   end
 

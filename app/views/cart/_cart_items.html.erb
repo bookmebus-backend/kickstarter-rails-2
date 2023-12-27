@@ -11,11 +11,15 @@
         <h5 class="card-title"><%= @product.name %></h5>
         <p class="card-text"><%= @product.description %></p>
         <p class="card-text"><strong>Price:</strong> <%= number_to_currency(@product.price) %></p>
-        <%= form_with(url: cart_add_path) do |f| %>
-          <%= f.hidden_field :id, value: @product.id %>
-          <%= f.number_field :quantity, value: cart_item.quantity, min: 0 %>
-          <%= f.submit "Add to Cart", class: "btn btn-primary btn-sm" %>
-        <% end %>
+        <div class="p-2">
+          <%= form_with(url: cart_add_path) do |f| %>
+            <%= f.hidden_field :id, value: @product.id %>
+            <%= f.number_field :quantity, value: cart_item.quantity, min: 0 %>
+            <div class="p-2">
+              <%= f.submit "Add to Cart", class: "btn btn-primary btn-sm" %>
+            </div>
+          <% end %>
+        </div>
         <%= form_with(url: cart_remove_path) do |f| %>
           <%= f.hidden_field :id, value: cart_item.id %>
           <%= f.submit "Remove", class: "btn btn-danger btn-sm ml-2" %>
